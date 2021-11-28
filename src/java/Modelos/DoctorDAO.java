@@ -22,8 +22,9 @@ public class DoctorDAO {
     
     public Doctor Validar(String usuario, String contrasena)
     {
+         System.out.println("VALIDAR DAO");
         Doctor dc=new Doctor();
-        String sql="select * from doctor where cedula=? and contrasena=?";
+        String sql="select * from doctor where cedula=? and contrasena=?; ";
         try{
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
@@ -36,9 +37,10 @@ public class DoctorDAO {
                dc.setCedula(rs.getString("cedula"));
                dc.setContra(rs.getString("contrasena"));
            }
+           System.out.println("SE ENCONTRO");
         }catch(Exception e)
         {
-            
+            System.out.println("No se encontro");
         }
         return dc;
     }

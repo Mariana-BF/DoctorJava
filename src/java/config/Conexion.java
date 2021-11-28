@@ -15,21 +15,20 @@ import java.sql.DriverManager;
 public class Conexion {
     
     Connection con; 
-    String url="jdbc:mysl://localhost:3306/doctor";
-    String user="root";
-    String pass="";
+
     public Connection Conexion()
     {
+        
         try{
-            
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection(url,user,pass);
-              System.out.println("Conezion exitosa");
-        }catch(Exception e){
-            
-            System.out.println("Auida");
-            
-        }
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/doctor","root","");
+            System.out.println("Conexion aceptada!!!");
+        }catch(Exception e)
+            {
+                   System.out.println("Conexion NO aceptada!!!");  
+            }
+    
+    
         return con;
     }
     
