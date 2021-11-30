@@ -18,22 +18,19 @@
     </head>
     
     <body>
-        
-       <nav class="navbar navbar-light  " style="background-color: #0d99fd ">
-            
-                    <div class="container-fluid">
-                      <a class="navbar-brand text-white" style="margin-left: 46%;">DOCTOR
-                          <img src="img/hospital(1).png" alt=""/>
+        <!--NAVBAR-->
+       <nav class="navbar navbar-light  " style="background-color: #0d99fd "> 
+         <div class="container-fluid">
+              <a  href="Controlador?accion=Principal" class="navbar-brand text-white" style="margin-left: 47%;"> <h5>DOCTOR<img src="img/hospital(1).png" alt=""/></h5></a>
                       
-                      </a>
-                      
-                      <form accion="Validar" method="POST">
-                          <button name="accion" value="Salir" class="btn btn-danger">Cerrar sesión</button>
-                      </form>
+            <form accion="Validar" method="POST">
+                <button name="accion" value="Salir" class="btn btn-danger">Cerrar sesión</button>
+            </form>
                      
-                    </div>
-               </nav>
+         </div>
+        </nav>
         
+        <!--Acciones-->
         <ul class="nav justify-content-center" >
                 <li class="nav-item">
                   <a class="nav-link active"  href="ControladorPacientes?menu=Diagnosticos&accion=Listar" target="myFrame" >Diagnosticos</a>
@@ -47,8 +44,10 @@
                
         </ul>
         
+
+        
         <div class="m-4" style="height: 750px  ">
-          <iframe name="myFrame"   style=" height: 100%; width: 100%; border:1px; border-color:black; border-style: solid;">
+          <iframe name="myFrame"   style=" height: 100%; width: 100%; border: none">
            </iframe>
         </div>
         

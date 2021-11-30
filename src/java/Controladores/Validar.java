@@ -66,19 +66,19 @@ public class Validar extends HttpServlet {
             throws ServletException, IOException {
             String accion=request.getParameter("accion");
         if(accion.equalsIgnoreCase("Ingresar")){
-            String usuario= request.getParameter("txtuser");
-            String contrasena= request.getParameter("txtpass");
-           dc=dcdao.Validar(usuario, contrasena);
-            if(dc.getCedula()!=null)
-            {
-             request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
-            }else
-            {
+                String usuario= request.getParameter("txtuser");
+                String contrasena= request.getParameter("txtpass");
+                dc=dcdao.Validar(usuario, contrasena);
+        if(dc.getCedula()!=null)
+        {   
+                request.getRequestDispatcher("Controlador?accion=Principal").forward(request, response);
+        }else
+        {
                  request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
+        }
         } else
         {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

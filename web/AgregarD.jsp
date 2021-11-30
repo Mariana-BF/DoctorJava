@@ -17,6 +17,8 @@
         <title>Detalle paciente</title>
     </head>
     <body>
+        
+        <h4 style="margin-top:4%">Agregar Diagnostico Nuevo</h4>
         <form action="ControladorPacientes?menu=AgregarD" method="POST" class="row g-3" style="padding: 50px;">
                        <div class="col-md-8">
                          <label for="enfermedad" class="form-label">Enfermedad</label>

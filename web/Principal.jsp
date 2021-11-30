@@ -19,22 +19,16 @@
         <nav class="navbar navbar-light  " style="background-color: #0d99fd ">
             
                     <div class="container-fluid">
-                      <a class="navbar-brand text-white" style="margin-left: 47%;">DOCTOR
-                          <img src="img/hospital(1).png" alt=""/>
-                      
-                      </a>
-                      
+                        <a  href="Controlador?accion=Principal" class="navbar-brand text-white" style="margin-left: 47%;"> <h5>DOCTOR<img src="img/hospital(1).png" alt=""/></h5></a>      
                       <form accion="Validar" method="POST">
                           <button name="accion" value="Salir" class="btn btn-danger">Cerrar sesión</button>
                       </form>
+                     
                      
                     </div>
                </nav>
         
         <br>
-        
-        
-    
         
             <div class="container-fluid"  >
               <form class="d-flex" action="Controlador" method="POST">
@@ -44,9 +38,9 @@
             </div>
         
             <!-- Button trigger modal -->
-       <button type="button" class="btn btn-outline-primary float-end mt-3 me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-         Añadir Paciente
-       </button>
+                <button type="button" class="btn btn-outline-primary float-end mt-3 me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Añadir Paciente
+                </button>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,7 +103,7 @@
                               <img src="img/degradado.jpg" class="card-img-top" alt=""/>
                               <div class="card-body">
                                   <h5 class="card-title text-center"> <c:out value="${paciente.nombre} "/> </h5>
-                                  <p class="card-text">Telefono : <c:out value="${paciente.telefono}" /></p>
+                                  <p class="card-text text-center">Telefono : <c:out value="${paciente.telefono}" /></p>
                                 <a href="Controlador?accion=Paciente" class="btn btn-primary" style="margin-left: 33%">Detalles</a>
                               </div>
                              </div>

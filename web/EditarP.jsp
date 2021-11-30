@@ -19,26 +19,39 @@
     <body>
         
  
+     
     
-    <div  class="conteiner">
+    <div  class="conteiner" style="margin-top:4%">
           
-           <ul class="list-group list-group-flush">
-               
-                <li class="list-group-item"> ${Paciente.getNombre()}</li>
-                <li class="list-group-item">${Paciente.getApellidoP()}</li>
-                <li class="list-group-item">${Paciente.getApellidoM()}</li>
-                <li class="list-group-item">${Paciente.getEdad()}</li>
-                <li class="list-group-item">${Paciente.getTelefono()}</li>
-               
+        <div class="row">
+             <div class="col-md-6 " >
+                 <h5 style="margin-left: 12%; margin-bottom: 6% ">Informacion del paciente</h5>
+                
+                 <div style="margin-left: 22% ">
+                     <p>Nombre completo del paciente</p><p  class="text-center" >${Paciente.getNombre()} ${Paciente.getApellidoP()} ${Paciente.getApellidoM()} </p>
+                      <p>Edad del paciente</p><p class="text-center">${Paciente.getEdad()}</p>
+                      <p>Numero de celular</p><p class="text-center">${Paciente.getTelefono()}</p>
+                      <p>Direccion del paciente</p> <p class="text-center">${Paciente.getDireccion()}</p> 
+                 </div>
+              
+             
+             </div>
         
-           </ul>
+        <div class="col-md-6  " > 
+               <p style="margin-left: 32%;  margin-top: 12% " >
+                    <img src="img/historial-medico.png"  alt=""/>
+                </p> 
+            
+              
+        </div>
+            
+        </div>
+        
             <!-- Button trigger modal -->
             <br>
             <div class="d-grid gap-2 col-6 mx-auto">
                 
-                <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Launch static backdrop modal
-        </button>
+                <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar datos</button>
             </div>
         
    
@@ -54,7 +67,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                          <h5 class="modal-title" id="staticBackdropLabel">Editar Datos</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -75,18 +88,18 @@
                            <label for="inputEmail4" class="form-label">Direccion</label>
                          <input type="text" class="form-control" name="direccion"value="${Paciente.getDireccion()}">
                        </div>
-                       <div class="col-12">
+                       <div class="col-8">
                          <label for="inputEmail4" class="form-label">Telefono</label>
                          <input type="text" class="form-control" name="telefono" value="${Paciente.getTelefono()}">
                        </div>
-                       <div class="col-12">
+                       <div class="col-4">
                         <label for="inputEmail4" class="form-label">Edad</label>
                          <input type="text" class="form-control" name="edad" value="${Paciente.getEdad()}">
                        </div>
                                 
                                 <div class="modal-footer" style="margin-top: 10%">
                               <button  name="accion" class="btn btn-primary me-md-2" type="submit">Agregar</button>
-                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                           
                         </div>       
                                 

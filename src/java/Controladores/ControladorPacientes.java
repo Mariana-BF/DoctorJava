@@ -49,40 +49,32 @@ public class ControladorPacientes extends HttpServlet {
             throws ServletException, IOException {
      
         String menu=request.getParameter("menu");
-        
         String accion= request.getParameter("accion");
         
         if(menu.equals("Diagnosticos"))
         {
-                 switch(accion)
+           switch(accion)
         {
             case "Listar":
-       
                 List lista= pcdao.Listar();
                 request.setAttribute("Diagnosticos", lista);
                 break;  
             default:
                 throw new AssertionError();
         }
-           request.getRequestDispatcher("Diagnosticos.jsp").forward(request, response);
+                request.getRequestDispatcher("Diagnosticos.jsp").forward(request, response);
         }
          if(menu.equals("AgregarD"))
         {
-                  
-    
-                
-               // request.getRequestDispatcher("ContoladorPacientes?menu=AgregarD")*/
-       
-          request.getRequestDispatcher("AgregarD.jsp").forward(request, response);
+                request.getRequestDispatcher("AgregarD.jsp").forward(request, response);
         }
-         
         if("Editar".equals(menu))
         {
-            System.out.print("Menu");
-           Paciente p =pcdao.ListarPaciente();
-             System.out.print("Menu detalles "+ p.getNombre()+" "+p.getApellidoP() );
-          request.setAttribute("Paciente", p);
-          request.getRequestDispatcher("EditarP.jsp").forward(request, response);
+          
+                Paciente p =pcdao.ListarPaciente();
+                //System.out.print("Menu detalles "+ p.getNombre()+" "+p.getApellidoP() );
+                request.setAttribute("Paciente", p);
+                request.getRequestDispatcher("EditarP.jsp").forward(request, response);
         }
          
          
