@@ -5,18 +5,10 @@
  */
 package Controladores;
 
-
-import Modelos.Diagnostico;
-import Modelos.DiagnosticoDAO;
 import Modelos.Paciente;
 import Modelos.PacienteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author maria
  */
-@WebServlet(name = "ControladorPacientes", urlPatterns = {"/ControladorPacientes"})
-public class ControladorPacientes extends HttpServlet {
+@WebServlet(name = "Editar", urlPatterns = {"/Editar"})
+public class Editar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,53 +33,21 @@ public class ControladorPacientes extends HttpServlet {
      */
     Paciente pc=new Paciente();
     PacienteDAO pcdao =new PacienteDAO();
-    
-    Diagnostico dg=new Diagnostico();
-    DiagnosticoDAO dgdao=new DiagnosticoDAO();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-        String menu=request.getParameter("menu");
-        
-        String accion= request.getParameter("accion");
-        
-        if(menu.equals("Diagnosticos"))
-        {
-                 switch(accion)
-        {
-            case "Listar":
-       
-                List lista= pcdao.Listar();
-                request.setAttribute("Diagnosticos", lista);
-                break;  
-            default:
-                throw new AssertionError();
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Editar</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Editar at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-           request.getRequestDispatcher("Diagnosticos.jsp").forward(request, response);
-        }
-         if(menu.equals("AgregarD"))
-        {
-                  
-    
-                
-               // request.getRequestDispatcher("ContoladorPacientes?menu=AgregarD")*/
-       
-          request.getRequestDispatcher("AgregarD.jsp").forward(request, response);
-        }
-         
-        if("Editar".equals(menu))
-        {
-            System.out.print("Menu");
-           Paciente p =pcdao.ListarPaciente();
-             System.out.print("Menu detalles "+ p.getNombre()+" "+p.getApellidoP() );
-          request.setAttribute("Paciente", p);
-          request.getRequestDispatcher("EditarP.jsp").forward(request, response);
-        }
-         
-         
-         
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -116,23 +76,27 @@ public class ControladorPacientes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        String accion=request.getParameter("accion");
-        
-                String Enfermedad =request.getParameter("enfermedad");
-                String Fecha =request.getParameter("fecha");
-                String Observaciones =request.getParameter("obs");
-                String Medicamentos =request.getParameter("med");
-                dg.setFecha(Fecha);
-                dg.setEnfermedad(Enfermedad);
-                dg.setObservaciones(Observaciones);
-                dg.setMedicamentos(Medicamentos);
+               String accion=request.getParameter("accion");
+        System.out.println("Controlador editar");
+                String nombre =request.getParameter("nombre");
+                String apellido_m =request.getParameter("apm");
+                String apellido_p =request.getParameter("app");
+                String direccion =request.getParameter("direccion");
+                String telefono =request.getParameter("telefono");
+                String edad =request.getParameter("edad");
+                pc.setNombre(nombre);
+                pc.setApellidoM(apellido_m);
+                pc.setApellidoP(apellido_p);
+                pc.setDireccion(direccion);
+                pc.setTelefono(telefono);
+                pc.setEdad(Integer.parseInt(edad));
              
-                dgdao.Agregar(dg);
+                pcdao.Updt(pc);
+                //dgdao.Agregar(dg);
                         
-
+        
     }
-   
+
     /**
      * Returns a short description of the servlet.
      *

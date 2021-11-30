@@ -22,6 +22,7 @@ public class PacienteDAO {
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
+    int r;
     
     
     public void LlenarDiagnosticos(Paciente pc) throws SQLException {
@@ -40,11 +41,12 @@ public class PacienteDAO {
     
     public List Listar()
     {
-         String query="SELECT * FROM diagnostico WHERE id_paciente=1;";
+         String query="SELECT id_diagnostico,fecha,enfermedad,observaciones,medicamentos FROM diagnostico WHERE id_paciente=1;";
         List<Diagnostico> lista= new ArrayList<>();
         
         try
         {
+           ps=con.prepareStatement(query);
            con=cn.Conexion();
            ps=con.prepareStatement(query);
            rs=ps.executeQuery();
@@ -68,6 +70,80 @@ public class PacienteDAO {
         
         return lista;
         
+    }
+    
+    
+        public int Updt(Paciente dg)
+    {
+        String sql="update paciente set nombre=?,apellido_m=?,apellido_p=?,edad=?, direccion=?,telefono=? where id_paciente=1";
+        try
+        {
+           /* System.out.println(dg.getFecha());
+             System.out.println(dg.getEnfermedad());
+              System.out.println( dg.getObservaciones());
+                  System.out.println( dg.getMedicamentos());*/
+              
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            ps.setString(1, dg.getNombre());
+            ps.setString(2, dg.getApellidoM());
+            ps.setString(3, dg.getApellidoP());
+            ps.setInt(4, dg.getEdad());
+            ps.setString(5, dg.getDireccion());
+            ps.setString(6, dg.getTelefono());
+           
+            ps.execute();
+            
+            
+        }catch(Exception e)
+        {
+            
+            System.out.println("No actualizo");
+            e.printStackTrace();
+        }
+        
+        return r;
+       
+    }
+    
+    
+    
+    
+    public Paciente ListarPaciente()
+    {
+        String query="Select * from paciente WHERE id_paciente=1;";
+        Paciente paci =new Paciente();
+        
+        System.out.println("PACIENTEEEEE");
+          try
+        {
+             System.out.println("PACIENTEEEEE try");
+           
+           con=cn.Conexion();
+           ps=con.prepareStatement(query);
+           rs=ps.executeQuery();
+           System.out.println("antes next ");
+           rs.next();
+           
+               System.out.println("PACIENTEEEEE while ");
+             
+               System.out.println("PACIENTEEEEE"+rs.getString("nombre"));
+                paci.setNombre(rs.getString(2));
+                paci.setApellidoM(rs.getString(3));
+                paci.setApellidoP(rs.getString(4));
+                paci.setEdad(rs.getInt(5));
+                paci.setDireccion(rs.getString(6));
+                paci.setFechaI(rs.getString(7)); 
+                paci.setTelefono(rs.getString(8));
+                
+        }catch(Exception e)
+        {
+            
+        }
+          
+         return paci;
+         
+     
     }
     
     public Paciente GetPaciente(int id) throws SQLException

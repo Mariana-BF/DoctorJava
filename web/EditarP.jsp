@@ -18,26 +18,35 @@
     </head>
     <body>
         
+ 
+    
+    <div  class="conteiner">
+          
+           <ul class="list-group list-group-flush">
+               
+                <li class="list-group-item"> ${Paciente.getNombre()}</li>
+                <li class="list-group-item">${Paciente.getApellidoP()}</li>
+                <li class="list-group-item">${Paciente.getApellidoM()}</li>
+                <li class="list-group-item">${Paciente.getEdad()}</li>
+                <li class="list-group-item">${Paciente.getTelefono()}</li>
+               
         
-        <div  class="conteiner">
-              <ul class="list-group">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
-              </ul>
+           </ul>
             <!-- Button trigger modal -->
             <br>
             <div class="d-grid gap-2 col-6 mx-auto">
                 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           Launch static backdrop modal
         </button>
             </div>
         
    
+   
         </div>
+    
+    
+    
         
 
         <!-- Modal -->
@@ -49,26 +58,34 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3" style="padding: 50px;">
+                 <form action="Editar" method="POST" class="row g-3" style="padding: 50px;">
                        <div class="col-md-12">
                          <label for="inputEmail4" class="form-label">Nombre</label>
-                         <input type="email" class="form-control" id="enfermedad">
+                         <input type="text" class="form-control" name="nombre" value="${Paciente.getNombre()}">
+                       </div>
+                       <div class="col-md-12">
+                         <label for="inputEmail4" class="form-label">Apellido materno</label>
+                         <input type="text" class="form-control" name="apm" value="${Paciente.getApellidoM()}">
+                       </div>
+                       <div class="col-md-12">
+                         <label for="inputEmail4" class="form-label">Apellido paterno</label>
+                         <input type="text" class="form-control" name="app" value="${Paciente.getApellidoP()}">
                        </div>
                        <div class="col-md-12">
                            <label for="inputEmail4" class="form-label">Direccion</label>
-                         <input type="text" class="form-control" id="fecha">
+                         <input type="text" class="form-control" name="direccion"value="${Paciente.getDireccion()}">
                        </div>
                        <div class="col-12">
                          <label for="inputEmail4" class="form-label">Telefono</label>
-                         <input type="text" class="form-control" id="fecha">
+                         <input type="text" class="form-control" name="telefono" value="${Paciente.getTelefono()}">
                        </div>
                        <div class="col-12">
                         <label for="inputEmail4" class="form-label">Edad</label>
-                         <input type="text" class="form-control" id="fecha">
+                         <input type="text" class="form-control" name="edad" value="${Paciente.getEdad()}">
                        </div>
                                 
                                 <div class="modal-footer" style="margin-top: 10%">
-                              <button class="btn btn-primary me-md-2" type="submit">Agregar</button>
+                              <button  name="accion" class="btn btn-primary me-md-2" type="submit">Agregar</button>
                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                           
                         </div>       
