@@ -5,9 +5,20 @@
  */
 package Controladores;
 
+
+import Modelos.Diagnostico;
+import Modelos.DiagnosticoDAO;
+import Modelos.Paciente;
+import Modelos.PacienteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author maria
  */
-public class Controlador extends HttpServlet {
+@WebServlet(name = "ControladorPacientes", urlPatterns = {"/ControladorPacientes"})
+public class ControladorPacientes extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,20 +39,51 @@ public class Controlador extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    Paciente pc=new Paciente();
+    PacienteDAO pcdao =new PacienteDAO();
+    
+    Diagnostico dg=new Diagnostico();
+    DiagnosticoDAO dgdao=new DiagnosticoDAO();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+     
+        String menu=request.getParameter("menu");
+        
         String accion= request.getParameter("accion");
-        switch(accion)
+        
+        if(menu.equals("Diagnosticos"))
         {
-            case "Principal":
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
-                break;
-            case "Paciente":
-                request.getRequestDispatcher("Paciente.jsp").forward(request, response);
-                break;             
+                 switch(accion)
+        {
+            case "Listar":
+       
+                List lista= pcdao.Listar();
+                request.setAttribute("Diagnosticos", lista);
+                break;  
             default:
                 throw new AssertionError();
         }
+           request.getRequestDispatcher("Diagnosticos.jsp").forward(request, response);
+        }
+         if(menu.equals("AgregarD"))
+        {
+                  
+    
+                
+               // request.getRequestDispatcher("ContoladorPacientes?menu=AgregarD")*/
+       
+          request.getRequestDispatcher("AgregarD.jsp").forward(request, response);
+        }
+         
+        if("Editar".equals(menu))
+        {
+          request.getRequestDispatcher("EditarP.jsp").forward(request, response);
+        }
+         
+         
+         
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,9 +112,23 @@ public class Controlador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+       
+        String accion=request.getParameter("accion");
+        
+                String Enfermedad =request.getParameter("enfermedad");
+                String Fecha =request.getParameter("fecha");
+                String Observaciones =request.getParameter("obs");
+                String Medicamentos =request.getParameter("med");
+                dg.setFecha(Fecha);
+                dg.setEnfermedad(Enfermedad);
+                dg.setObservaciones(Observaciones);
+                dg.setMedicamentos(Medicamentos);
+             
+                dgdao.Agregar(dg);
+                        
 
+    }
+   
     /**
      * Returns a short description of the servlet.
      *
