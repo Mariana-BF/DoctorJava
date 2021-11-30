@@ -15,6 +15,8 @@ public class Paciente {
     
     int idPaciente, edad;
     String nombre, apellidoP, apellidoM, direccion, fechaI, telefono;
+    
+    String id,paterno,materno,edadS,fecha,cedula;
   
     ArrayList<Diagnostico> Diagnosticos = new ArrayList<>();
 
@@ -28,10 +30,26 @@ public class Paciente {
         this.fechaI = fechaI;
         this.telefono = telefono;
     }
+    
+       public Paciente(String id, String nombre, String paterno, String materno,
+            String telefono, String edad, String direccion, String fecha, String cedula){
+        
+        this.id =id;
+        this.nombre = nombre;
+        this.paterno = paterno;
+        this.materno = materno;
+        this.telefono = telefono;
+        this.edadS = edad;
+        this.direccion= direccion;
+        this.fecha = fecha;
+        this.cedula = cedula;
+    }
 
     public Paciente() {
        //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
     
 

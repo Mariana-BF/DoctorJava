@@ -5,8 +5,12 @@
  */
 package Controladores;
 
+import Modelos.Paciente;
+import Modelos.PacienteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,15 +33,51 @@ public class Controlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PacienteDAO pacienteDAO = new PacienteDAO();
         String accion= request.getParameter("accion");
+        RequestDispatcher dispatcher = null;
         switch(accion)
         {
-            case "Principal":
-                request.getRequestDispatcher("Principal.jsp").forward(request, response);
+           case "Principal":
+                dispatcher = request.getRequestDispatcher("Principal.jsp");
+                List<Paciente> listaPacientes = pacienteDAO.listarPacientes();
+                
+                request.setAttribute("lista",listaPacientes);
+                dispatcher.forward(request, response);
                 break;
             case "Paciente":
                 request.getRequestDispatcher("Paciente.jsp").forward(request, response);
-                break;             
+                break;   
+            case "BuscarPaciente":
+                String busca = request.getParameter("buscaProducto");
+                System.out.print("Buscando Paciente");
+                System.out.print(busca);
+                dispatcher = request.getRequestDispatcher("Principal.jsp");
+                listaPacientes = pacienteDAO.BuscarPaciente(busca);
+                request.setAttribute("lista",listaPacientes);
+                dispatcher.forward(request, response);
+                break; 
+            case "agregarPaciente":
+                String nombre = request.getParameter("txtNombre");
+                String paterno = request.getParameter("txtPaterno");
+                String materno = request.getParameter("txtMaterno");
+                String edad = request.getParameter("txtEdad");
+                String direccion = request.getParameter("txtDireccion");
+                String telefono = request.getParameter("txtTelefono");
+                System.out.print("Agregar Paciente");
+                System.out.print(nombre);
+                System.out.print(paterno);
+                System.out.print(materno);
+                System.out.print(edad);
+                System.out.print(direccion);
+                System.out.print(telefono);
+                pacienteDAO.InsertarPaciente(nombre,paterno,materno,edad,direccion,telefono);
+                
+                dispatcher = request.getRequestDispatcher("Principal.jsp");
+                listaPacientes = pacienteDAO.listarPacientes();
+                request.setAttribute("lista",listaPacientes);
+                dispatcher.forward(request, response);
+                break;               
             default:
                 throw new AssertionError();
         }

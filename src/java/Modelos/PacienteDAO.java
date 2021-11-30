@@ -25,19 +25,7 @@ public class PacienteDAO {
     int r;
     
     
-    public void LlenarDiagnosticos(Paciente pc) throws SQLException {
-        String query = "SELECT id_diagnostico, fecha, enfermedad, observaciones, medicamentos, id_paciente FROM diagnostico WHERE id_paciente = ?;";
-        ps = con.prepareStatement(query);
-        
-        ps.setInt(1, pc.getIdPaciente());
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            if (rs.getInt(6) == pc.getIdPaciente()){
-                //Diagnostico nDiag = new Diagnostico(rs.getInt(1), rs.getNString(2), rs.getNString(3), rs.getNString(4), rs.getNString(5));
-             //   pc.Diagnosticos.add(nDiag);
-            }
-        }
-    }
+   
     
     public List Listar()
     {
@@ -146,35 +134,113 @@ public class PacienteDAO {
      
     }
     
-    public Paciente GetPaciente(int id) throws SQLException
-    {
-        Paciente pc=new Paciente();
+   public List<Paciente> listarPacientes(){
         
-        String query="Select * from paciente where id_paciente=?;";
+        List<Paciente> ListaPacientes = new ArrayList<>();
+        String sql="SELECT * FROM paciente;";
         
-            con=cn.Conexion();
-            ps=con.prepareStatement(query);
-            ps.setInt(1, id);
-            rs=ps.executeQuery();
+       try{
+           con=cn.Conexion();
+           ps=con.prepareStatement(sql);
+           rs = ps.executeQuery();
            
-            if(rs.next())
-            {
-                pc.setIdPaciente(rs.getInt(1));
-                pc.setNombre(rs.getString(2));
-                pc.setApellidoM(rs.getString(3));
-                pc.setApellidoP(rs.getString(4));
-                pc.setEdad(rs.getInt(5));
-                pc.setDireccion(rs.getString(6));
-                pc.setFechaI(rs.getString(7));
-                pc.setTelefono(rs.getString(8));     
-                
-            }
-         
+           while(rs.next()){
+               System.out.println("Principal "+rs.getString(1));
+                String id = rs.getString("id_paciente");
+               String nombre = rs.getString("nombre");
+               String paterno = rs.getString("apellido_p");
+               String materno = rs.getString("apellido_m");
+               String telefono = rs.getString("telefono");
+               String edad = rs.getString("edad");
+               String direccion = rs.getString("direccion");
+               String fecha = rs.getString("fecha_ingreso");
+               String cedula = rs.getString("cedula");
+               
+               Paciente paciente = new Paciente(id,nombre,paterno,materno,telefono,edad,direccion,fecha,cedula);
+               ListaPacientes.add(paciente);
+               
+           } 
+           
+       }
+       catch(SQLException e){
+           
+           System.out.println(e.toString());
+           
+           return null;
+           
+       }
+       
+       return ListaPacientes;
+      
+    }
+   
+       public List<Paciente> BuscarPaciente(String busqueda){
         
-        return pc;
-    }
+        List<Paciente> ListaPacientes = new ArrayList<>();
+        String sql="SELECT * FROM paciente Where nombre LIKE '%"+busqueda+"%' OR Apellido_p LIKE '%"+busqueda+"%' OR Apellido_m LIKE '%"+busqueda+"%' OR fecha_ingreso LIKE '%"+busqueda+"%' ; ";
+        System.out.print(sql);
+        
+       try{
+           con=cn.Conexion();
+           ps=con.prepareStatement(sql);
+           
+           
+           rs = ps.executeQuery();
+           
+           while(rs.next()){
+               
+                String id = rs.getString("id_paciente");
+               String nombre = rs.getString("nombre");
+               String paterno = rs.getString("apellido_p");
+               String materno = rs.getString("apellido_m");
+               String telefono = rs.getString("telefono");
+               String edad = rs.getString("edad");
+               String direccion = rs.getString("direccion");
+               String fecha = rs.getString("fecha_ingreso");
+               String cedula = rs.getString("cedula");
+               
+               Paciente paciente = new Paciente(id,nombre,paterno,materno,telefono,edad,direccion,fecha,cedula);
+               ListaPacientes.add(paciente);
+               
+           } 
+           
+           return ListaPacientes;
 
-    public Paciente GetPaciente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       }
+       catch(SQLException e){
+           
+           System.out.println(e.toString());
+           
+           return null;
+           
+       }
+        
     }
+       
+        public boolean InsertarPaciente(String nombre, String paterno, String materno, String edad, String direccion, String telefono){
+        
+        
+        String sql="INSERT INTO paciente (nombre, apellido_m, Apellido_p, edad,direccion, fecha_ingreso, telefono, cedula) VALUES ('"+nombre+"', '"+paterno+"', '"+materno+"', "+edad+", '"+direccion+"', current_date(), '"+telefono+"', 'ABC12345678'); ";
+        System.out.println(sql);
+       try{
+           con=cn.Conexion();
+           ps=con.prepareStatement(sql);
+          
+           ps.execute();
+           
+         
+           return true;
+
+       }
+       catch(SQLException e){
+           
+           System.out.println(e.toString());
+           
+           return false;
+           
+       }
+        
+    }
+    
+   
 }
