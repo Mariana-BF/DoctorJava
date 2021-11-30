@@ -19,13 +19,14 @@ public class Conexion {
     public Connection Conexion()
     {
         
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/doctor","root","");
+       try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/doctor?autoReconnect=true&useSSL=false","root","Mikef100");
             System.out.println("Conexion aceptada!!!");
         }catch(Exception e)
             {
                    System.out.println("Conexion NO aceptada!!!");  
+                   System.out.println(e.getMessage());  
             }
     
     
